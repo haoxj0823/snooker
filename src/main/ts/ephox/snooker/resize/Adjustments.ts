@@ -56,15 +56,20 @@ const adjustHeight = function (table, delta, index, direction) {
   const newCellSizes = Recalculations.recalculateHeight(warehouse, newHeights);
   const newRowSizes = Recalculations.matchRowHeight(warehouse, newHeights);
 
-  Arr.each(newRowSizes, function (row) {
-    Sizes.setHeight(row.element(), row.height());
+  Arr.each(newRowSizes, function (row, i) {
+    const rowElement = row.element();
+    
+    let height = RuntimeSize.getHeight(rowElement);
+    height = index === i ? Math.max(delta + height, CellUtils.minHeight()) : height;
+    
+    Sizes.setHeight(rowElement, height);
   });
 
   Arr.each(newCellSizes, function (cell) {
     Sizes.setHeight(cell.element(), cell.height());
   });
 
-  const total = sumUp(newHeights);
+  const total = Sizes.getPixelHeight(table) + delta;
   Sizes.setHeight(table, total);
 };
 
