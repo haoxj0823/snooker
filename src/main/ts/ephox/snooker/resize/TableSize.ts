@@ -42,7 +42,7 @@ const pixelSize = function (width) {
     return [ newNext - w ];
   };
   const setTableWidth = function (table, newWidths, _delta?) {
-    const total = Arr.foldr(newWidths, function (b, a) { return b + a; }, 0);
+    const total = Sizes.getPixelWidth(table) + _delta;
     Sizes.setPixelWidth(table, total);
   };
   return {
