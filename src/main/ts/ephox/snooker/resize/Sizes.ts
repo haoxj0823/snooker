@@ -35,7 +35,7 @@ const convert = function (cell, number, getter, setter) {
 };
 
 const normalizePixelSize = function (value, cell, getter, setter) {
-  const number = parseInt(value, 10);
+  const number = parseFloat(value, 10);
   return Strings.endsWith(value, '%') && Node.name(cell) !== 'table' ? convert(cell, number, getter, setter) : number;
 };
 
@@ -97,7 +97,7 @@ const normalizePixelWidth = function (cellWidth, tableSize) {
 const choosePixelSize = function (element, width, tableSize) {
   if (pixelBasedSizeRegex.test(width)) {
     const pixelMatch = pixelBasedSizeRegex.exec(width);
-    return parseInt(pixelMatch[1], 10);
+    return parseFloat(pixelMatch[1], 10);
   } else if (percentageBasedSizeRegex.test(width)) {
     const percentMatch = percentageBasedSizeRegex.exec(width);
     const floatWidth = parseFloat(percentMatch[1]);
